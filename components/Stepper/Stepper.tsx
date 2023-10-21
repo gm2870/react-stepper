@@ -2,22 +2,24 @@
 import { useState } from 'react';
 import Sidebar from './Sidebar/Sidebar';
 import Card from '../ui/Card/Card';
-import StepOne from './Step-one/Step-one';
+import StepTwo from './Step-two/Step-two';
 
-const Stepper = () => {
+const Stepper = ({ isMobile }: { isMobile: boolean }) => {
   const [step, setstep] = useState(1);
-
   return (
     <div className="md:flex">
       <Sidebar />
-      <div className="hidden md:block">
-        <StepOne />
-      </div>
-      <div className="relative z-20 -mt-24 mx-4 md:hidden">
-        <Card>
-          <StepOne />
-        </Card>
-      </div>
+      {!isMobile ? (
+        <div className="hidden md:block w-full">
+          <StepTwo />
+        </div>
+      ) : (
+        <div className="relative z-20 -mt-24 mx-4 md:hidden">
+          <Card>
+            <StepTwo />
+          </Card>
+        </div>
+      )}
     </div>
   );
 };
