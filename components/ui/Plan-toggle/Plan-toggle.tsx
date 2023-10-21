@@ -6,15 +6,26 @@ type ToggleProps = {
 };
 const PlanToggle = ({ type, toggleHandler }: ToggleProps) => {
   const checked = type === 'YEARLY' ? true : false;
-  const selectedClassName = (planType: 'MONTHLY' | 'YEARLY') =>
-    `${type === planType ? 'text-blue-900' : 'text-stone-500'}`;
+
   return (
     <div className="bg-blue-50 p-6 rounded-md text-center">
-      <span className={selectedClassName(type)}>Monthly</span>
+      <span
+        className={`${
+          type === 'MONTHLY' ? 'font-bold text-blue-900' : 'text-stone-500'
+        }`}
+      >
+        Monthly
+      </span>
       <div className="inline-block mx-6">
         <ToggleInput toggleChanged={toggleHandler} checked={checked} />
       </div>
-      <span className={selectedClassName(type)}>Yearly</span>
+      <span
+        className={`${
+          type === 'YEARLY' ? 'font-bold text-blue-900' : 'text-stone-500'
+        }`}
+      >
+        Yearly
+      </span>
     </div>
   );
 };
