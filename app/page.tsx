@@ -6,7 +6,6 @@ import useIsMobile from '@/hooks/useIsMobile';
 
 export default function Home() {
   const isMobile = useIsMobile();
-  console.log(isMobile);
   return (
     <main className="md:container flex min-h-screen flex-col items-center justify-between md:p-6 lg:py-24">
       {!isMobile ? (
