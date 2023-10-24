@@ -7,7 +7,7 @@ import useIsMobile from '@/hooks/useIsMobile';
 export default function Home() {
   const isMobile = useIsMobile();
   return (
-    <main className="md:container flex min-h-screen flex-col items-center justify-between md:p-6 lg:py-24">
+    <main className="relative md:container flex min-h-screen flex-col items-center justify-between md:p-6 lg:py-24">
       {!isMobile ? (
         <div className="w-full hidden md:block">
           <Card>
@@ -15,7 +15,7 @@ export default function Home() {
           </Card>
         </div>
       ) : (
-        <div className="w-full block md:hidden">
+        <div className="w-full h-full block md:hidden">
           <Stepper isMobile={isMobile} />
         </div>
       )}

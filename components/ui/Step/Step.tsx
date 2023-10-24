@@ -2,10 +2,14 @@ type StepProps = {
   active: boolean;
   title: string;
   index: number;
+  changeStep: () => void;
 };
-const Step = ({ active, title, index }: StepProps) => {
+const Step = ({ active, title, index, changeStep }: StepProps) => {
   return (
-    <div className="cursor-pointer block md:grid grid-rows-2 grid-cols-4 py-3">
+    <div
+      onClick={changeStep}
+      className="cursor-pointer block md:grid grid-rows-2 grid-cols-4 py-3"
+    >
       <div className="flex justify-center items-center row-start-1 row-span-2 col-start-1 col-end-1">
         <div
           className={`${

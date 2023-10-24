@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import Buttons from '../Buttons/Buttons';
 
 const ThankYou = () => {
   return (

@@ -9,6 +9,8 @@
   --body-background: #eef5ff;
   --active-step: #bee2fc;
   --primary-color: #082a53;
+  --gray: #93949e;
+  --white: #fff;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -23,4 +25,33 @@ body {
   color: rgb(var(--foreground-rgb));
   background: var(--body-background);
   font-size: 14px;
+}
+
+.bg-primary {
+  background-color: var(--primary-color);
+}
+
+.text-primary {
+  color: var(--primary-color);
+}
+
+.text-gray {
+  color: var(--gray);
+}
+
+.btn-primary {
+  color: #fff;
+  background-color: var(--primary-color);
+  padding: 10px 20px;
+  border-radius: 6px;
+  transition: all 0.1s;
+}
+
+.btn-primary:hover {
+  background-color: #483eff;
+}
+
+.btn-gray {
+  color: var(--gray);
+  font-weight: 700;
 }
