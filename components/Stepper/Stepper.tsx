@@ -5,23 +5,47 @@ import Card from '../ui/Card/Card';
 import StepTwo from './Step-two/Step-two';
 import StepThree from './Step-three/Step-three';
 import StepFour from './Step-four/Step-four';
-import ThankYou from './Thank-you/Thank-you';
 import Buttons from './Buttons/Buttons';
 import StepOne from './Step-one/Step-one';
-import Button from '../ui/Button/Button';
+import { yupResolver } from '@hookform/resolvers/yup';
+import { useForm } from 'react-hook-form';
+import * as Yup from 'yup';
 
 const Stepper = ({ isMobile }: { isMobile: boolean }) => {
   const [step, setStep] = useState(1);
-  const changeStepHandler = (step: number) => {
+  const changeStepHandler = async (step: number) => {
+    const isValid = await trigger(['name', 'email', 'phone']);
+    if (!isValid) return;
     if (step > 4 || step < 1) {
       return;
     }
     setStep(step);
   };
-  let activeStep = <StepOne />;
+
+  const validationSchema = Yup.object().shape({
+    email: Yup.string()
+      .email('Please enter a valid email.')
+      .required('Email is required'),
+    name: Yup.string().required('Please enter your name.'),
+    phone: Yup.string().required('Please enter your phone number.'),
+  });
+
+  const {
+    register,
+    handleSubmit,
+    trigger,
+    getFieldState,
+    formState: { errors },
+  } = useForm({
+    resolver: yupResolver(validationSchema),
+    reValidateMode: 'onChange',
+    mode: 'onTouched',
+  });
+
+  let activeStep = <StepOne register={register} state={getFieldState} />;
   switch (step) {
     case 1:
-      activeStep = <StepOne />;
+      activeStep = <StepOne register={register} state={getFieldState} />;
       break;
     case 2:
       activeStep = <StepTwo />;
@@ -35,6 +59,7 @@ const Stepper = ({ isMobile }: { isMobile: boolean }) => {
     default:
       break;
   }
+
   return (
     <div className="md:flex h-full">
       <Sidebar step={step} changeStep={changeStepHandler} />

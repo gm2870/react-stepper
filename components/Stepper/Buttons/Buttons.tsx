@@ -2,7 +2,7 @@ import Button from '@/components/ui/Button/Button';
 
 type ButtonsProps = {
   next: () => void;
-  previous: () => void;
+  previous?: () => void;
 };
 
 const Buttons = ({ next, previous }: ButtonsProps) => {
