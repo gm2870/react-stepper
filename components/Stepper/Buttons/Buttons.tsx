@@ -1,10 +1,17 @@
 import Button from '@/components/ui/Button/Button';
 
-const Buttons = () => {
+type ButtonsProps = {
+  next: () => void;
+  previous: () => void;
+};
+
+const Buttons = ({ next, previous }: ButtonsProps) => {
   return (
     <div className="absolute md:relative bottom-0 w-full bg-white p-3 flex justify-between">
-      <Button color="gray">Go Back</Button>
-      <Button>Next Step</Button>
+      <Button onClick={previous} color="gray">
+        Go Back
+      </Button>
+      <Button onClick={next}>Next Step</Button>
     </div>
   );
 };

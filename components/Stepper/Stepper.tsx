@@ -12,7 +12,12 @@ import Button from '../ui/Button/Button';
 
 const Stepper = ({ isMobile }: { isMobile: boolean }) => {
   const [step, setStep] = useState(1);
-  const changeStepHandler = (step: number) => setStep(step);
+  const changeStepHandler = (step: number) => {
+    if (step > 4 || step < 1) {
+      return;
+    }
+    setStep(step);
+  };
   let activeStep = <StepOne />;
   switch (step) {
     case 1:
@@ -35,9 +40,12 @@ const Stepper = ({ isMobile }: { isMobile: boolean }) => {
       <Sidebar step={step} changeStep={changeStepHandler} />
       {!isMobile ? (
         <>
-          <div className="flex flex-col justify-between w-full">
+          <div className="flex flex-col justify-between w-full md:py-6">
             {activeStep}
-            <Buttons />
+            <Buttons
+              next={() => changeStepHandler(step + 1)}
+              previous={() => changeStepHandler(step - 1)}
+            />
           </div>
         </>
       ) : (
@@ -45,7 +53,10 @@ const Stepper = ({ isMobile }: { isMobile: boolean }) => {
           <div className="flex flex-col h-full justify-between relative z-20 -mt-24 mx-4 md:hidden">
             <Card>{activeStep}</Card>
           </div>
-          <Buttons />
+          <Buttons
+            next={() => changeStepHandler(step + 1)}
+            previous={() => changeStepHandler(step - 1)}
+          />
         </>
       )}
     </div>
