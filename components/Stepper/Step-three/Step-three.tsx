@@ -1,6 +1,16 @@
+import { Addon } from '@/app/models/addon.model';
 import AddonCard from '@/components/ui/Addon-card/Addon-card';
-
-const StepThree = () => {
+import { addons } from '../Stepper';
+const StepThree = ({
+  currentAddon,
+  changeAddon,
+}: {
+  currentAddon?: Addon;
+  changeAddon: (ad: Addon) => void;
+}) => {
+  const selectAddon = (ad: Addon) => {
+    changeAddon(ad);
+  };
   return (
     <div className="p-6 md:pt-20 md:px-12 h-full">
       <div>
@@ -8,31 +18,17 @@ const StepThree = () => {
         <p className="mt-3 mb-6 text-stone-500">
           Add-ons help enhance your gaming experience.
         </p>
-        <div className="mb-4">
-          <AddonCard
-            price={9}
-            type="YEARLY"
-            title="Online Service"
-            selected={false}
-            subTitle="Access to multiplayer games"
-          />
-        </div>
-        <div className="mb-4">
-          <AddonCard
-            price={9}
-            type="YEARLY"
-            title="Online Service"
-            selected={false}
-            subTitle="Access to multiplayer games"
-          />
-        </div>
-        <AddonCard
-          price={9}
-          type="YEARLY"
-          title="Online Service"
-          selected={false}
-          subTitle="Access to multiplayer games"
-        />
+        {addons.map((ad) => (
+          <div key={ad.id} className="mb-4" onClick={() => selectAddon(ad)}>
+            <AddonCard
+              price={ad.price}
+              type={ad.type}
+              title={ad.title}
+              selected={currentAddon?.id === ad.id}
+              subTitle={ad.description}
+            />
+          </div>
+        ))}
       </div>
     </div>
   );

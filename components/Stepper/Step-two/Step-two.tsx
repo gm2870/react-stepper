@@ -1,47 +1,28 @@
+import { Plan } from '@/app/models/plan.model';
 import PlanCard from '@/components/ui/Plan-card/Plan-card';
 import PlanToggle from '@/components/ui/Plan-toggle/Plan-toggle';
 import { useState } from 'react';
-import { UseFormRegister } from 'react-hook-form';
+import { plans } from '../Stepper';
 
 type PlanType = 'MONTHLY' | 'YEARLY';
-const plans = [
-  {
-    id: '_1',
-    price: 9,
-    icon: 'arcade',
-    title: 'Arcade',
-    type: 'MONTHLY',
-  },
-  {
-    id: '_2',
-    price: 12,
-    icon: 'advanced',
-    title: 'Advanced',
-    type: 'MONTHLY',
-  },
-  {
-    id: '_3',
-    price: 19,
-    icon: 'pro',
-    title: 'Pro',
-    type: 'MONTHLY',
-  },
-];
-const StepTwo = () => {
-  const [planType, setPlanType] = useState<PlanType>('MONTHLY');
 
-  const [plan, setPlan] = useState<string>('_1');
-
+const StepTwo = ({
+  currentPlan,
+  changePlan,
+}: {
+  currentPlan: Plan;
+  changePlan: (plan: Plan) => void;
+}) => {
   const toggleHandler = () => {
-    setPlanType((prev) => {
-      if (prev === 'MONTHLY') return 'YEARLY';
-      return 'MONTHLY';
+    const type = currentPlan.type === 'MONTHLY' ? 'YEARLY' : 'MONTHLY';
+
+    changePlanHandler({
+      ...currentPlan,
+      type,
     });
   };
 
-  const changePlanHandler = (id: string) => {
-    setPlan(id);
-  };
+  const changePlanHandler = (plan: Plan) => changePlan(plan);
 
   return (
     <div className="p-6 md:pt-20 md:px-12 h-full">
@@ -53,15 +34,14 @@ const StepTwo = () => {
         {plans.map((p) => (
           <div key={p.id} className="mr-2 last-of-type:mr-0 w-full">
             <PlanCard
-              changePlan={(id: string) => changePlanHandler(id)}
-              {...p}
-              selected={p.id === plan}
-              type={planType}
+              changePlan={(plan: Plan) => changePlanHandler(plan)}
+              plan={p}
+              selected={p.id === currentPlan.id}
             />
           </div>
         ))}
       </form>
-      <PlanToggle toggleHandler={toggleHandler} type={planType} />
+      <PlanToggle toggleHandler={toggleHandler} type={currentPlan.type} />
     </div>
   );
 };

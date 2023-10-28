@@ -10,24 +10,86 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm } from 'react-hook-form';
 import * as Yup from 'yup';
 import useIsMobile from '@/hooks/useIsMobile';
+import { Plan } from '@/app/models/plan.model';
+import { PersonalInfo } from '@/app/models/personal-info.model';
+import { Addon } from '@/app/models/addon.model';
 
+export const plans: Plan[] = [
+  {
+    id: '_1',
+    price: 9,
+    icon: 'arcade',
+    title: 'Arcade',
+    type: 'MONTHLY',
+  },
+  {
+    id: '_2',
+    price: 12,
+    icon: 'advanced',
+    title: 'Advanced',
+    type: 'MONTHLY',
+  },
+  {
+    id: '_3',
+    price: 19,
+    icon: 'pro',
+    title: 'Pro',
+    type: 'MONTHLY',
+  },
+];
+export const addons: Addon[] = [
+  {
+    id: '_1',
+    price: 9,
+    title: 'Online Service',
+    description: 'Access to muktiplayer games',
+    type: 'MONTHLY',
+  },
+  {
+    id: '_2',
+    price: 12,
+    title: 'Online Service',
+    description: 'Access to multiplayer games',
+    type: 'MONTHLY',
+  },
+  {
+    id: '_3',
+    price: 15,
+    title: 'Online Service',
+    description: 'Access to multiplayer games',
+    type: 'MONTHLY',
+  },
+];
 const Stepper = () => {
-  const [data, setData] = useState({
+  const [data, setData] = useState<{
+    personalInfo: PersonalInfo;
+    plan: Plan;
+    addon: Addon | undefined;
+  }>({
     personalInfo: {
       name: '',
       email: '',
       phone: '',
     },
-    plan: {
-      id: '',
-      type: 'MONTHLY',
-    },
+    plan: plans[1],
+    addon: undefined,
   });
   const [step, setStep] = useState(1);
+
+  const changePlanHandler = (plan: Plan) => {
+    setData((prev) => ({
+      ...prev,
+      plan,
+    }));
+  };
 
   const changeStepHandler = async (step: number) => {
     const isValid = await trigger(['name', 'email', 'phone']);
     if (!isValid) return;
+
+    if (step > 4 || step < 1) {
+      return;
+    }
     switch (step) {
       case 2:
         const personalInfo = watch();
@@ -36,15 +98,6 @@ const Stepper = () => {
           personalInfo,
         }));
         break;
-      case 3:
-        // update plan of data
-        break;
-
-      default:
-        break;
-    }
-    if (step > 4 || step < 1) {
-      return;
     }
     setStep(step);
   };
@@ -69,17 +122,26 @@ const Stepper = () => {
     reValidateMode: 'onChange',
     mode: 'onTouched',
   });
-
+  const changeAddonHandler = (addon: Addon) => {
+    setData((prev) => ({
+      ...prev,
+      addon,
+    }));
+  };
   let activeStep = <StepOne register={register} state={getFieldState} />;
   switch (step) {
     case 1:
       activeStep = <StepOne register={register} state={getFieldState} />;
       break;
     case 2:
-      activeStep = <StepTwo />;
+      activeStep = (
+        <StepTwo currentPlan={data.plan} changePlan={changePlanHandler} />
+      );
       break;
     case 3:
-      activeStep = <StepThree />;
+      activeStep = (
+        <StepThree changeAddon={changeAddonHandler} currentAddon={data.addon} />
+      );
       break;
     case 4:
       activeStep = <StepFour />;
@@ -101,6 +163,8 @@ const Stepper = () => {
           {activeStep}
         </div>
         <Buttons
+          isFirst={step === 1}
+          isLast={step === 4}
           next={() => changeStepHandler(step + 1)}
           previous={() => changeStepHandler(step - 1)}
         />
