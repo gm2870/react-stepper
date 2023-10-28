@@ -1,16 +1,28 @@
 import Image from 'next/image';
+import { MouseEventHandler } from 'react';
 
 type PlanCardProps = {
+  id: string;
   price: number;
   icon: string;
   title: string;
-  type: 'MONTHLY' | 'YEARLY';
+  type: string;
   selected: boolean;
+  changePlan: (id: string) => void;
 };
-const PlanCard = ({ price, icon, title, type, selected }: PlanCardProps) => {
+const PlanCard = ({
+  id,
+  price,
+  icon,
+  title,
+  type,
+  selected,
+  changePlan,
+}: PlanCardProps) => {
   const planType = type === 'MONTHLY' ? 'mo' : 'yr';
   return (
     <div
+      onClick={() => changePlan(id)}
       className={`${
         selected ? 'border-blue-900 bg-blue-50' : 'border-stone-300'
       } flex w-full cursor-pointer flex-col justify-between violet-900 border p-4 min-h-[150px] rounded-md`}

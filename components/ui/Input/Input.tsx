@@ -18,8 +18,10 @@ const Input = ({ label, control, state }: InputProps) => {
         required
         {...control}
         className={`${
-          state?.invalid ? 'border-red-600' : 'outline-blue-900'
-        } w-full rounded-[3px] outline-1 border p-2 border-stone-300`}
+          state?.invalid
+            ? 'border-red-600 border-red-600'
+            : 'outline-blue-900 border-stone-300'
+        } w-full focus:outline-blue-900 rounded-[3px] outline-1 border p-2`}
         type="text"
       />
     </>

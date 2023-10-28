@@ -7,7 +7,7 @@ type ButtonsProps = {
 
 const Buttons = ({ next, previous }: ButtonsProps) => {
   return (
-    <div className="absolute md:relative bottom-0 w-full bg-white p-3 flex justify-between">
+    <div className="absolute md:relative bottom-0 w-full bg-white py-3 px-6 md:px-12 flex justify-between">
       <Button onClick={previous} color="gray">
         Go Back
       </Button>

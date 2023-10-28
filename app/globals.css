@@ -55,3 +55,10 @@ body {
   color: var(--gray);
   font-weight: 700;
 }
+
+.card {
+  background-color: var(--white);
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 0 1rem rgba(0, 0, 0, 0.122);
+}
