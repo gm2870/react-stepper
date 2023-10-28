@@ -1,5 +1,7 @@
 import Input from '@/components/ui/Input/Input';
 import { UseFormRegister } from 'react-hook-form';
+import Buttons from '../Buttons/Buttons';
+import useIsMobile from '@/hooks/useIsMobile';
 
 const StepOne = ({
   register,
@@ -12,9 +14,14 @@ const StepOne = ({
   }>;
   state?: any;
 }) => {
+  const isMobile = useIsMobile();
   return (
-    <div className="h-full flex flex-col justify-between p-6 md:py-0 md:pt-20 md:px-12">
-      <div className="">
+    <>
+      <div
+        className={`${
+          isMobile ? 'card' : ''
+        } flex flex-col justify-between p-6 md:py-0 md:pt-20 mx-4 md:px-12`}
+      >
         <h1 className="text-blue-900 text-xl font-bold">Personal Info</h1>
         <p className="mt-3 mb-6 text-stone-500">
           Please provide your name, email address and phone number.
@@ -43,7 +50,8 @@ const StepOne = ({
           </div>
         </form>
       </div>
-    </div>
+      <Buttons isFirst={true} isLast={false} />
+    </>
   );
 };
 

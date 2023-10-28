@@ -9,7 +9,7 @@ const Sidebar = ({
   changeStep: (step: number) => void;
 }) => {
   return (
-    <div className="grid rounded-xl md:p-6 grid-rows-[100px_100px] md:grid-rows-1">
+    <div className="grid rounded-xl grid-rows-[100px_100px] md:grid-rows-1">
       <div className="relative hidden md:block w-[350px] h-[700px] row-start-1 row-end-1 col-end-1">
         <Image
           fill
@@ -25,7 +25,7 @@ const Sidebar = ({
           alt="bg-sidebar-desktop"
         />
       </div>
-      <div className="z-10 md:h-full grid grid-rows-1 grid-cols-4 md:block row-start-1 row-end-1 col-end-1 md:py-5 w-1/2 md:w-full m-auto  md:py-12 md:px-3">
+      <div className="z-10 md:h-full md:px-0 grid grid-rows-1 grid-cols-4 md:block row-start-1 row-end-1 col-end-1 md:py-5 w-1/2 md:w-full m-auto  md:py-12 md:px-3">
         <Step
           title="Your Info"
           index={1}

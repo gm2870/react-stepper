@@ -13,53 +13,8 @@ import useIsMobile from '@/hooks/useIsMobile';
 import { Plan } from '@/app/models/plan.model';
 import { PersonalInfo } from '@/app/models/personal-info.model';
 import { Addon } from '@/app/models/addon.model';
+import { plans } from '@/app/data';
 
-export const plans: Plan[] = [
-  {
-    id: '_1',
-    price: 9,
-    icon: 'arcade',
-    title: 'Arcade',
-    type: 'MONTHLY',
-  },
-  {
-    id: '_2',
-    price: 12,
-    icon: 'advanced',
-    title: 'Advanced',
-    type: 'MONTHLY',
-  },
-  {
-    id: '_3',
-    price: 19,
-    icon: 'pro',
-    title: 'Pro',
-    type: 'MONTHLY',
-  },
-];
-export const addons: Addon[] = [
-  {
-    id: '_1',
-    price: 9,
-    title: 'Online Service',
-    description: 'Access to muktiplayer games',
-    type: 'MONTHLY',
-  },
-  {
-    id: '_2',
-    price: 12,
-    title: 'Online Service',
-    description: 'Access to multiplayer games',
-    type: 'MONTHLY',
-  },
-  {
-    id: '_3',
-    price: 15,
-    title: 'Online Service',
-    description: 'Access to multiplayer games',
-    type: 'MONTHLY',
-  },
-];
 const Stepper = () => {
   const [data, setData] = useState<{
     personalInfo: PersonalInfo;
@@ -122,12 +77,14 @@ const Stepper = () => {
     reValidateMode: 'onChange',
     mode: 'onTouched',
   });
+
   const changeAddonHandler = (addon: Addon) => {
     setData((prev) => ({
       ...prev,
       addon,
     }));
   };
+
   let activeStep = <StepOne register={register} state={getFieldState} />;
   switch (step) {
     case 1:
@@ -151,23 +108,19 @@ const Stepper = () => {
   }
   const isMobile = useIsMobile();
   return (
-    <div className={`${!isMobile ? 'card' : ''} w-full md:flex h-full`}>
+    <div
+      className={`${
+        !isMobile ? 'card' : ''
+      } flex flex-col grow md:grow-0 w-full md:flex-row md:p-6`}
+    >
       <Sidebar step={step} changeStep={changeStepHandler} />
 
-      <div className="w-full flex flex-col justify-between md:py-6">
+      <div className="flex flex-col w-full justify-between -mt-24 md:mt-0 grow md:py-6">
         <div
-          className={`${
-            isMobile ? 'card' : ''
-          } relative z-20 -mt-24 md:mt-0 mx-4 md:mx-0`}
+          className={`flex flex-col justify-between grow z-20  md:mx-4 md:mx-0`}
         >
           {activeStep}
         </div>
-        <Buttons
-          isFirst={step === 1}
-          isLast={step === 4}
-          next={() => changeStepHandler(step + 1)}
-          previous={() => changeStepHandler(step - 1)}
-        />
       </div>
     </div>
   );
