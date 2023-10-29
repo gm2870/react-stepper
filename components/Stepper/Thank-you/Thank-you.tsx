@@ -1,8 +1,14 @@
+import useIsMobile from '@/hooks/useIsMobile';
 import Image from 'next/image';
 
 const ThankYou = () => {
+  const isMobile = useIsMobile();
   return (
-    <div className="px-24 flex flex-col items-center justify-center h-3/4">
+    <div
+      className={`${
+        isMobile ? 'card' : ''
+      } py-24 px-8 mx-4 md:px-24 flex flex-col items-center justify-center h-3/4`}
+    >
       <div className="mb-3">
         <Image width={70} height={70} src="/images/icon-thank-you.svg" alt="" />
       </div>
