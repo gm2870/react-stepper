@@ -4,13 +4,14 @@ import Image from 'next/image';
 type PlanCardProps = {
   plan: Plan;
   selected: boolean;
+  type: 'MONTHLY' | 'YEARLY';
   changePlan: (plan: Plan) => void;
 };
 
-const PlanCard = ({ plan, selected, changePlan }: PlanCardProps) => {
+const PlanCard = ({ plan, selected, changePlan, type }: PlanCardProps) => {
   const changePlanHandler = () => changePlan(plan);
 
-  const planType = plan.type === 'MONTHLY' ? 'mo' : 'yr';
+  const planType = type === 'MONTHLY' ? 'mo' : 'yr';
   return (
     <div
       onClick={changePlanHandler}

@@ -20,7 +20,11 @@ const AddonCard = ({
       } flex w-full cursor-pointer items-center justify-between violet-900 border p-4 rounded-md`}
     >
       <div className="flex gap-4">
-        <input className="w-[20px] bg-indigo-500" type="checkbox" />
+        <input
+          className="w-[20px] bg-indigo-500"
+          type="checkbox"
+          checked={selected}
+        />
         <div>
           <div className="font-bold text-blue-900">{title}</div>
           <div className="text-stone-400">{subTitle}</div>

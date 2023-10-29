@@ -1,10 +1,9 @@
 'use client';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Sidebar from './Sidebar/Sidebar';
 import StepTwo from './Step-two/Step-two';
 import StepThree from './Step-three/Step-three';
 import StepFour from './Step-four/Step-four';
-import Buttons from './Buttons/Buttons';
 import StepOne from './Step-one/Step-one';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm } from 'react-hook-form';
@@ -19,7 +18,7 @@ const Stepper = () => {
   const [data, setData] = useState<{
     personalInfo: PersonalInfo;
     plan: Plan;
-    addon: Addon | undefined;
+    addon: Addon;
   }>({
     personalInfo: {
       name: '',
@@ -27,33 +26,21 @@ const Stepper = () => {
       phone: '',
     },
     plan: plans[1],
-    addon: undefined,
+    addon: {} as Addon,
   });
   const [step, setStep] = useState(1);
 
-  const changePlanHandler = (plan: Plan) => {
+  const ConfirmPlan = (plan: Plan) => {
     setData((prev) => ({
       ...prev,
       plan,
     }));
+    setStep(3);
   };
 
   const changeStepHandler = async (step: number) => {
     const isValid = await trigger(['name', 'email', 'phone']);
     if (!isValid) return;
-
-    if (step > 4 || step < 1) {
-      return;
-    }
-    switch (step) {
-      case 2:
-        const personalInfo = watch();
-        setData((prev) => ({
-          ...prev,
-          personalInfo,
-        }));
-        break;
-    }
     setStep(step);
   };
 
@@ -71,42 +58,77 @@ const Stepper = () => {
     trigger,
     getFieldState,
     formState: { errors },
-    watch,
+    reset,
   } = useForm({
     resolver: yupResolver(validationSchema),
     reValidateMode: 'onChange',
     mode: 'onTouched',
   });
 
-  const changeAddonHandler = (addon: Addon) => {
-    setData((prev) => ({
-      ...prev,
-      addon,
-    }));
+  const changeAddonHandler = (addon: Addon | undefined) => {
+    if (addon) {
+      setData((prev) => ({
+        ...prev,
+        addon,
+      }));
+    }
+    setStep(4);
   };
 
-  let activeStep = <StepOne register={register} state={getFieldState} />;
+  const confirmPersonalInfo = (personalInfo: PersonalInfo) => {
+    setData((prev) => ({
+      ...prev,
+      personalInfo,
+    }));
+    setStep(2);
+  };
+
+  let activeStep = (
+    <StepOne
+      register={register}
+      state={getFieldState}
+      onConfirm={handleSubmit((e) => confirmPersonalInfo(e))}
+    />
+  );
+
+  const submitData = () => console.log(data);
   switch (step) {
     case 1:
-      activeStep = <StepOne register={register} state={getFieldState} />;
+      activeStep = (
+        <StepOne
+          register={register}
+          state={getFieldState}
+          onConfirm={handleSubmit((e) => confirmPersonalInfo(e))}
+        />
+      );
+
       break;
     case 2:
-      activeStep = (
-        <StepTwo currentPlan={data.plan} changePlan={changePlanHandler} />
-      );
+      activeStep = <StepTwo currentPlan={data.plan} onConfirm={ConfirmPlan} />;
       break;
     case 3:
       activeStep = (
-        <StepThree changeAddon={changeAddonHandler} currentAddon={data.addon} />
+        <StepThree onConfirm={changeAddonHandler} currentAddon={data.addon} />
       );
       break;
     case 4:
-      activeStep = <StepFour />;
+      activeStep = <StepFour onConfirm={submitData} />;
       break;
     default:
       break;
   }
   const isMobile = useIsMobile();
+
+  useEffect(() => {
+    // in edit mode get form data from api
+    // and set it using reset method provided by hook form
+    // reset({
+    //   name: 'ali',
+    //   email: 'ali@gmail.com',
+    //   phone: '1234',
+    // });
+  }, []);
+
   return (
     <div
       className={`${

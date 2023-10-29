@@ -4,24 +4,29 @@ import PlanToggle from '@/components/ui/Plan-toggle/Plan-toggle';
 import useIsMobile from '@/hooks/useIsMobile';
 import Buttons from '../Buttons/Buttons';
 import { plans } from '@/app/data';
+import { useState } from 'react';
 
 const StepTwo = ({
   currentPlan,
-  changePlan,
+  onConfirm,
 }: {
   currentPlan: Plan;
-  changePlan: (plan: Plan) => void;
+  onConfirm: (plan: Plan) => void;
 }) => {
+  const [selectedPlan, setSelectedPlan] = useState<Plan>(currentPlan);
+  console.log(selectedPlan);
   const toggleHandler = () => {
-    const type = currentPlan.type === 'MONTHLY' ? 'YEARLY' : 'MONTHLY';
+    const type = selectedPlan.type === 'MONTHLY' ? 'YEARLY' : 'MONTHLY';
 
-    changePlanHandler({
-      ...currentPlan,
+    setSelectedPlan({
+      ...selectedPlan,
       type,
     });
   };
 
-  const changePlanHandler = (plan: Plan) => changePlan(plan);
+  const changePlanHandler = (plan: Plan) => {
+    setSelectedPlan(plan);
+  };
   const isMobile = useIsMobile();
 
   return (
@@ -41,14 +46,15 @@ const StepTwo = ({
               <PlanCard
                 changePlan={(plan: Plan) => changePlanHandler(plan)}
                 plan={p}
-                selected={p.id === currentPlan.id}
+                selected={p.id === selectedPlan.id}
+                type={selectedPlan.type}
               />
             </div>
           ))}
         </form>
-        <PlanToggle toggleHandler={toggleHandler} type={currentPlan.type} />
+        <PlanToggle toggleHandler={toggleHandler} type={selectedPlan.type} />
       </div>
-      <Buttons isFirst={false} isLast={false} />
+      <Buttons next={() => onConfirm(selectedPlan)} />
     </>
   );
 };

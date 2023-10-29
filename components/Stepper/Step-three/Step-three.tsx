@@ -3,17 +3,20 @@ import AddonCard from '@/components/ui/Addon-card/Addon-card';
 import useIsMobile from '@/hooks/useIsMobile';
 import Buttons from '../Buttons/Buttons';
 import { addons } from '@/app/data';
+import { useEffect, useState } from 'react';
 const StepThree = ({
   currentAddon,
-  changeAddon,
+  onConfirm,
 }: {
   currentAddon?: Addon;
-  changeAddon: (ad: Addon) => void;
+  onConfirm: (ad: Addon | undefined) => void;
 }) => {
-  const selectAddon = (ad: Addon) => {
-    changeAddon(ad);
-  };
+  const [addon, setAddon] = useState<Addon>();
   const isMobile = useIsMobile();
+
+  useEffect(() => {
+    setAddon(currentAddon);
+  }, [currentAddon]);
   return (
     <>
       <div
@@ -27,19 +30,19 @@ const StepThree = ({
             Add-ons help enhance your gaming experience.
           </p>
           {addons.map((ad) => (
-            <div key={ad.id} className="mb-4" onClick={() => selectAddon(ad)}>
+            <div key={ad.id} className="mb-4" onClick={() => setAddon(ad)}>
               <AddonCard
                 price={ad.price}
                 type={ad.type}
                 title={ad.title}
-                selected={currentAddon?.id === ad.id}
+                selected={addon?.id === ad.id}
                 subTitle={ad.description}
               />
             </div>
           ))}
         </div>
       </div>
-      <Buttons isFirst={false} isLast={false} />
+      <Buttons next={() => onConfirm(addon)} />
     </>
   );
 };
