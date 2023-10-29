@@ -9,12 +9,13 @@ import { useState } from 'react';
 const StepTwo = ({
   currentPlan,
   onConfirm,
+  goBack,
 }: {
   currentPlan: Plan;
   onConfirm: (plan: Plan) => void;
+  goBack: () => void;
 }) => {
   const [selectedPlan, setSelectedPlan] = useState<Plan>(currentPlan);
-  console.log(selectedPlan);
   const toggleHandler = () => {
     const type = selectedPlan.type === 'MONTHLY' ? 'YEARLY' : 'MONTHLY';
 
@@ -54,7 +55,7 @@ const StepTwo = ({
         </form>
         <PlanToggle toggleHandler={toggleHandler} type={selectedPlan.type} />
       </div>
-      <Buttons next={() => onConfirm(selectedPlan)} />
+      <Buttons previous={goBack} next={() => onConfirm(selectedPlan)} />
     </>
   );
 };

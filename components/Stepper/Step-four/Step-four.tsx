@@ -3,7 +3,13 @@ import Buttons from '../Buttons/Buttons';
 import { useState } from 'react';
 import ThankYou from '../Thank-you/Thank-you';
 
-const StepFour = ({ onConfirm }: { onConfirm: () => void }) => {
+const StepFour = ({
+  onConfirm,
+  goBack,
+}: {
+  onConfirm: () => void;
+  goBack: () => void;
+}) => {
   const isMobile = useIsMobile();
   const [showThankYou, setShowThankYou] = useState(false);
 
@@ -54,7 +60,7 @@ const StepFour = ({ onConfirm }: { onConfirm: () => void }) => {
               </div>
             </div>
           </div>
-          <Buttons isLast={true} next={confirmHandler} />
+          <Buttons isLast={true} previous={goBack} next={confirmHandler} />
         </>
       ) : (
         <ThankYou />

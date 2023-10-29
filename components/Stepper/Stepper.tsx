@@ -104,15 +104,27 @@ const Stepper = () => {
 
       break;
     case 2:
-      activeStep = <StepTwo currentPlan={data.plan} onConfirm={ConfirmPlan} />;
+      activeStep = (
+        <StepTwo
+          goBack={() => setStep(1)}
+          currentPlan={data.plan}
+          onConfirm={ConfirmPlan}
+        />
+      );
       break;
     case 3:
       activeStep = (
-        <StepThree onConfirm={changeAddonHandler} currentAddon={data.addon} />
+        <StepThree
+          goBack={() => setStep(2)}
+          onConfirm={changeAddonHandler}
+          currentAddon={data.addon}
+        />
       );
       break;
     case 4:
-      activeStep = <StepFour onConfirm={submitData} />;
+      activeStep = (
+        <StepFour goBack={() => setStep(3)} onConfirm={submitData} />
+      );
       break;
     default:
       break;

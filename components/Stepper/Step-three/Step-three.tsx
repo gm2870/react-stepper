@@ -7,9 +7,11 @@ import { useEffect, useState } from 'react';
 const StepThree = ({
   currentAddon,
   onConfirm,
+  goBack,
 }: {
   currentAddon?: Addon;
   onConfirm: (ad: Addon | undefined) => void;
+  goBack: () => void;
 }) => {
   const [addon, setAddon] = useState<Addon>();
   const isMobile = useIsMobile();
@@ -42,7 +44,7 @@ const StepThree = ({
           ))}
         </div>
       </div>
-      <Buttons next={() => onConfirm(addon)} />
+      <Buttons previous={goBack} next={() => onConfirm(addon)} />
     </>
   );
 };
