@@ -41,9 +41,9 @@ const StepTwo = ({
         <p className="mt-3 text-stone-500">
           You have the option of monthly or yearly plan.
         </p>
-        <form className="flex my-6 w-full">
+        <form className="flex flex-col md:flex-row my-6 w-full">
           {plans.map((p) => (
-            <div key={p.id} className="mr-2 last-of-type:mr-0 w-full">
+            <div key={p.id} className="mb-2 mr-2 last-of-type:mr-0 w-full">
               <PlanCard
                 changePlan={(plan: Plan) => changePlanHandler(plan)}
                 plan={p}

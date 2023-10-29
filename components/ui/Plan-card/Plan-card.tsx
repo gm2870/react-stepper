@@ -17,9 +17,9 @@ const PlanCard = ({ plan, selected, changePlan, type }: PlanCardProps) => {
       onClick={changePlanHandler}
       className={`${
         selected ? 'border-blue-900 bg-blue-50' : 'border-stone-300'
-      } flex w-full cursor-pointer flex-col justify-between violet-900 border p-4 min-h-[200px] rounded-md`}
+      } flex w-full cursor-pointer flex-row md:flex-col md:justify-between violet-900 border p-4 md:min-h-[200px] rounded-md`}
     >
-      <div>
+      <div className="mr-4 md:mr-0">
         <Image
           src={`/images/icon-${plan.icon}.svg`}
           width={40}
@@ -32,7 +32,9 @@ const PlanCard = ({ plan, selected, changePlan, type }: PlanCardProps) => {
         <div className="text-stone-500">
           ${plan.price}/${planType}
         </div>
-        <div className="font-medium text-blue-900">2 months free</div>
+        {type === 'MONTHLY' && (
+          <div className="font-medium text-blue-900">2 months free</div>
+        )}
       </div>
     </div>
   );

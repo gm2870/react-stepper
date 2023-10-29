@@ -20,11 +20,20 @@
     --background-end-rgb: 0, 0, 0;
   }
 }
+@font-face {
+  font-family: 'Ubuntu';
+  src: url('/public/fonts/Ubuntu-Regular.ttf');
+  src: url('/public/fonts/OpenSans/Ubuntu-Medium.ttf');
+  src: url('/public/fonts/OpenSans/Ubuntu-Bold.ttf');
+  font-weight: 400;
+  font-style: normal;
+}
 
 body {
   color: rgb(var(--foreground-rgb));
   background: var(--body-background);
   font-size: 14px;
+  font-family: Ubuntu !important;
 }
 
 .bg-primary {
