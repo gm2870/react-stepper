@@ -10,9 +10,10 @@ const Sidebar = ({
 }) => {
   return (
     <div className="grid rounded-xl grid-rows-[100px_100px] md:grid-rows-1">
-      <div className="relative hidden md:block w-[350px] h-[700px] row-start-1 row-end-1 col-end-1">
+      <div className="relative hidden md:block row-start-1 row-end-1 col-end-1">
         <Image
-          fill
+          width={350}
+          height={600}
           src="/images/bg-sidebar-desktop.svg"
           alt="bg-sidebar-desktop"
         />

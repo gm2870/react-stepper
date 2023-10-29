@@ -149,7 +149,7 @@ const Stepper = () => {
     >
       <Sidebar step={step} changeStep={changeStepHandler} />
 
-      <div className="flex flex-col w-full justify-between -mt-24 md:mt-0 grow md:py-6">
+      <div className="flex flex-col w-full justify-between -mt-24 md:mt-0 grow">
         <div
           className={`flex flex-col justify-between grow z-20  md:mx-4 md:mx-0`}
         >
