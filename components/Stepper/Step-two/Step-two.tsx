@@ -35,13 +35,13 @@ const StepTwo = ({
       <div
         className={`${
           isMobile ? 'card' : ''
-        } flex flex-col justify-between p-6 md:py-0 md:pt-20 mx-4 md:px-12`}
+        } flex flex-col justify-between p-6 md:py-0 md:pt-10 mx-4 md:mx-0 md:px-12`}
       >
-        <h1 className="text-blue-900 text-xl font-bold">Select your plan</h1>
-        <p className="mt-3 mb-6 text-stone-500">
+        <h1 className="text-blue-900 text-2xl font-bold">Select your plan</h1>
+        <p className="mt-3 text-stone-500">
           You have the option of monthly or yearly plan.
         </p>
-        <form className="flex my-2 w-full">
+        <form className="flex my-6 w-full">
           {plans.map((p) => (
             <div key={p.id} className="mr-2 last-of-type:mr-0 w-full">
               <PlanCard

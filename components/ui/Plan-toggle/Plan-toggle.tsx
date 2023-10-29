@@ -8,7 +8,7 @@ const PlanToggle = ({ type, toggleHandler }: ToggleProps) => {
   const checked = type === 'YEARLY' ? true : false;
 
   return (
-    <div className="bg-blue-50 p-6 rounded-md text-center">
+    <div className="bg-blue-50 p-3 rounded-md text-center">
       <span
         className={`${
           type === 'MONTHLY' ? 'font-bold text-blue-900' : 'text-stone-500'

@@ -19,9 +19,9 @@ const StepOne = ({
       <div
         className={`${
           isMobile ? 'card' : ''
-        } flex flex-col justify-between p-6 md:py-0 md:pt-20 mx-4 md:px-12`}
+        } flex flex-col justify-between p-6 md:py-0 md:pt-10 mx-4 md:mx-0 md:px-12`}
       >
-        <h1 className="text-blue-900 text-xl font-bold">Personal Info</h1>
+        <h1 className="text-blue-900 text-2xl font-bold">Personal Info</h1>
         <p className="mt-3 mb-6 text-stone-500">
           Please provide your name, email address and phone number.
         </p>

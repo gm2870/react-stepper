@@ -17,7 +17,7 @@ const PlanCard = ({ plan, selected, changePlan, type }: PlanCardProps) => {
       onClick={changePlanHandler}
       className={`${
         selected ? 'border-blue-900 bg-blue-50' : 'border-stone-300'
-      } flex w-full cursor-pointer flex-col justify-between violet-900 border p-4 min-h-[150px] rounded-md`}
+      } flex w-full cursor-pointer flex-col justify-between violet-900 border p-4 min-h-[200px] rounded-md`}
     >
       <div>
         <Image
@@ -32,6 +32,7 @@ const PlanCard = ({ plan, selected, changePlan, type }: PlanCardProps) => {
         <div className="text-stone-500">
           ${plan.price}/${planType}
         </div>
+        <div className="font-medium text-blue-900">2 months free</div>
       </div>
     </div>
   );
